@@ -1,1 +1,0 @@
-# snuplace-com.github.io
