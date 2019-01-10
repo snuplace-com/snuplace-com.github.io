@@ -9,9 +9,9 @@ document.getElementById('subscribe').addEventListener('submit', function (event)
     const content = {
         "data": { "email": email }
     }
-    makeRequest(url, JSON.stringify(content), { 
+    makeRequest(url, JSON.stringify(content), {
         "204": () => subscribeSuccess(event),
-        "422": () => subscribeSuccess(event) 
+        "422": () => subscribeSuccess(event)
     })
 
     event.preventDefault();
@@ -51,4 +51,34 @@ function makeRequest(url, content, callbacks) {
     xmlhttp.setRequestHeader('Content-Type', 'application/json');
     xmlhttp.setRequestHeader('Accept', 'application/json');
     xmlhttp.send(content);
+}
+
+/**
+ * Copy to clipboard from permalink input
+ * 
+ * @param {HTMLDocument} button clicked
+ */
+function copyPermalink(button) {
+    const input = document.querySelector('#permalink');
+    if (!input) {
+        return;
+    }
+
+    input.select();
+    document.execCommand('copy');
+
+    const url = input.value;
+    const icon = button.getElementsByClassName('fa')[0];
+
+    // show visual feedback
+    icon.classList.remove('fa-paste');
+    icon.classList.add('fa-ok');
+    input.value = "Permalink copiato!";
+
+    setTimeout(() => {
+        // restore visual state
+        icon.classList.remove('fa-ok');
+        icon.classList.add('fa-paste');
+        input.value = url;
+    }, 3000);
 }
