@@ -74,6 +74,7 @@ function copyPermalink(button) {
     icon.classList.remove('fa-paste');
     icon.classList.add('fa-ok');
     input.value = "Permalink copiato!";
+    input.blur();
 
     setTimeout(() => {
         // restore visual state
